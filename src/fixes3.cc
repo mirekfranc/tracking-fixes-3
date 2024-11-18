@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 	gm.branches_conf = fetch_file_if_needed(gm.branches_conf, "branches.conf", branches_conf_url, gm.trace, gm.refresh);
 
 	try_to_fetch_env(gm.kernel_tree, "LINUX_GIT");
-	try_to_fetch_env(gm.kernel_tree, "KSOURCE_GIT");
+	try_to_fetch_env(gm.kernel_source, "KSOURCE_GIT");
 
 	fail_with_message("unimplemented");
 
