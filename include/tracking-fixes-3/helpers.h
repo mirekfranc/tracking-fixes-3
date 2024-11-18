@@ -4,6 +4,7 @@
 #ifndef TF3_HELPERS_H
 #define TF3_HELPERS_H
 
+#include <string>
 #include <iostream>
 
 #define TF3_BEGIN try {

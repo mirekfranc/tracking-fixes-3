@@ -2,6 +2,7 @@
 #define TF3_GIT2_H
 
 #include <git2.h>
+#include "helpers.h"
 
 namespace {
 	struct LibGit2
