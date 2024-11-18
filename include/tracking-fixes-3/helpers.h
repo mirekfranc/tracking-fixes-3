@@ -4,6 +4,7 @@
 #ifndef TF3_HELPERS_H
 #define TF3_HELPERS_H
 
+#include <cstdlib>
 #include <string>
 #include <iostream>
 
@@ -20,6 +21,15 @@ namespace {
 	template<typename... Args> void emit_message(Args&&... args)
 	{
 		(std::cerr << ... << args) << std::endl;
+	}
+
+	void try_to_fetch_env(std::string &var, const std::string &name)
+	{
+		if (var.empty()) {
+			const char *ptr = std::getenv(name.c_str());
+			if (ptr)
+				var = ptr;
+		}
 	}
 }
 
