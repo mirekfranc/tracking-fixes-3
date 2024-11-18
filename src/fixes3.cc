@@ -30,6 +30,9 @@ int main(int argc, char **argv)
 	constexpr const char maintainers_url[] = "https://kerncvs.suse.de/MAINTAINERS";
 	gm.maintainers = fetch_file_if_needed(gm.maintainers, "MAINTAINERS", maintainers_url, gm.trace, gm.refresh);
 
+	constexpr const char branches_conf_url[] = "https://kerncvs.suse.de/branches.conf";
+	gm.branches_conf = fetch_file_if_needed(gm.branches_conf, "branches.conf", branches_conf_url, gm.trace, gm.refresh);
+
 	fail_with_message("unimplemented");
 
 	TF3_END;
