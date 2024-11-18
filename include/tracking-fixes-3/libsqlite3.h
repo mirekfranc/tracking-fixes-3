@@ -1,3 +1,6 @@
+// Copyright (C) 2024 SUSE LLC <mfranc@suse.cz>
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #ifndef TF3_SQLITE3_H
 #define TF3_SQLITE3_H
 

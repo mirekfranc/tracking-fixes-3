@@ -3,6 +3,7 @@
 
 #include "tracking-fixes-3/libgit2.h"
 #include "tracking-fixes-3/libsqlite3.h"
+#include "tracking-fixes-3/libcurl.h"
 
 int main(int argc, char **argv)
 {
