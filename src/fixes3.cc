@@ -16,6 +16,8 @@ namespace {
 		std::string context_map;
 		std::string branches_conf;
 		std::string origin = "origin";
+		bool refresh = false;
+		bool trace = false;
 	} gm;
 }
 
@@ -24,6 +26,9 @@ int main(int argc, char **argv)
 	TF3_BEGIN;
 
 	parse_options(argc, argv);
+
+	constexpr const char maintainers_url[] = "https://kerncvs.suse.de/MAINTAINERS";
+	gm.maintainers = fetch_file_if_needed(gm.maintainers, "MAINTAINERS", maintainers_url, gm.trace, gm.refresh);
 
 	fail_with_message("unimplemented");
 
@@ -41,6 +46,8 @@ namespace {
 		   << "  --kernel_source, -s <dir>     - Clone of the SUSE kernel repo ($KSOURCE_GIT)\n"
 		   << "  --context_map, -c <file>      - Custom path to the context-map\n"
 		   << "  --origin, -o <remote>         - Use some other remote than origin (useful only for $LINUX_GIT)\n"
+		   << "  --refresh, -r                 - Refresh config files\n"
+		   << "  --trace, -t                   - Be a bit more verbose about how we got there on STDERR\n"
 		   << "  --version, -V                 - Print just the version number\n";
 	}
 
@@ -52,6 +59,8 @@ namespace {
 		{ "context_map", required_argument, nullptr, 'c' },
 		{ "branches_conf", required_argument, nullptr, 'b' },
 		{ "origin", required_argument, nullptr, 'o' },
+		{ "refresh", no_argument, nullptr, 'r' },
+		{ "trace", no_argument, nullptr, 't' },
 		{ "version", no_argument, nullptr, 'V' },
 		{ nullptr, 0, nullptr, 0 },
 	};
@@ -64,7 +73,7 @@ namespace {
 		for (;;) {
 			int opt_idx;
 
-			c = getopt_long(argc, argv, "hm:k:s:c:b:o:V", opts, &opt_idx);
+			c = getopt_long(argc, argv, "hm:k:s:c:b:o:rtV", opts, &opt_idx);
 			if (c == -1)
 				break;
 
@@ -89,6 +98,12 @@ namespace {
 				break;
 			case 'o':
 				gm.origin = optarg;
+				break;
+			case 'r':
+				gm.refresh = true;
+				break;
+			case 't':
+				gm.trace = true;
 				break;
 			case 'V':
 				std::cout << TF3_VERSION << '\n';
