@@ -1,7 +1,8 @@
 // Copyright (C) 2024 SUSE LLC <mfranc@suse.cz>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "helpers.h"
+#include "tracking-fixes-3/helpers.h"
+#include "tracking-fixes-3/libgit2.h"
 
 int main(int argc, char **argv)
 {

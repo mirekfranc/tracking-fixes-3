@@ -6,9 +6,9 @@ project('tracking-fixes-3', 'cpp',
   default_options: ['buildtype=release', 'cpp_std=c++20', 'cpp_args=-Wall -Wextra -fPIE -g']
 )
 
-sqlite3_dep = dependency('sqlite3', required: true)
-libgit2_dep = dependency('libgit2', required: true)
-libcurl_dep = dependency('libcurl', required: true)
+sqlite3_dep = dependency('sqlite3', method : 'pkg-config', required: true)
+libgit2_dep = dependency('libgit2', method : 'pkg-config', required: true)
+libcurl_dep = dependency('libcurl', method : 'pkg-config', required: true)
 
 inc_dir = include_directories('include')
 
