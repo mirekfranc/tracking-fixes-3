@@ -20,6 +20,9 @@ namespace
 					fail_with_message("Failed to initilize libcurl!");
 			}
 		~LibCurl() { curl_global_cleanup(); }
+
+		LibCurl(const LibCurl&) = delete;
+		LibCurl& operator=(const LibCurl&) = delete;
 	};
 
 	struct CurlHandle
