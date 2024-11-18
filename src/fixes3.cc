@@ -34,13 +34,14 @@ namespace {
 
 	void usage(const char *prog, std::ostream &os)
 	{
-		os << prog << " For more information, read the man page.\n"
-		<< "  --help, -h                    - Print this help message\n"
-		<< "  --maintainers, -m <file>      - Custom path to the MAINTAINERS file instead of $HOME/.cache/tracking-fixes-3/MAINTAINERS\n"
-		<< "  --kernel_tree, -k <dir>       - Clone of the mainline kernel repo ($LINUX_GIT)\n"
-		<< "  --kernel_source, -s <dir>     - Clone of the SUSE kernel repo ($KSOURCE_GIT)\n"
-		<< "  --context_map, -c <file>      - Custom path to the context-map\n"
-		<< "  --origin, -o <remote>         - Use some other remote than origin (useful only for $LINUX_GIT)\n";
+		os << prog << " (version: " TF3_VERSION ") For more information, read the man page.\n"
+		   << "  --help, -h                    - Print this help message\n"
+		   << "  --maintainers, -m <file>      - Custom path to the MAINTAINERS file instead of $HOME/.cache/tracking-fixes-3/MAINTAINERS\n"
+		   << "  --kernel_tree, -k <dir>       - Clone of the mainline kernel repo ($LINUX_GIT)\n"
+		   << "  --kernel_source, -s <dir>     - Clone of the SUSE kernel repo ($KSOURCE_GIT)\n"
+		   << "  --context_map, -c <file>      - Custom path to the context-map\n"
+		   << "  --origin, -o <remote>         - Use some other remote than origin (useful only for $LINUX_GIT)\n"
+		   << "  --version, -V                 - Print just the version number\n";
 	}
 
 	struct option opts[] = {
@@ -51,6 +52,7 @@ namespace {
 		{ "context_map", required_argument, nullptr, 'c' },
 		{ "branches_conf", required_argument, nullptr, 'b' },
 		{ "origin", required_argument, nullptr, 'o' },
+		{ "version", no_argument, nullptr, 'V' },
 		{ nullptr, 0, nullptr, 0 },
 	};
 
@@ -62,7 +64,7 @@ namespace {
 		for (;;) {
 			int opt_idx;
 
-			c = getopt_long(argc, argv, "hm:k:s:c:b:o:", opts, &opt_idx);
+			c = getopt_long(argc, argv, "hm:k:s:c:b:o:V", opts, &opt_idx);
 			if (c == -1)
 				break;
 
@@ -88,6 +90,9 @@ namespace {
 			case 'o':
 				gm.origin = optarg;
 				break;
+			case 'V':
+				std::cout << TF3_VERSION << '\n';
+				throw 0;
 			default:
 				usage(argv[0], std::cerr);
 				throw 1;

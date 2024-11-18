@@ -6,6 +6,8 @@ project('tracking-fixes-3', 'cpp',
   default_options: ['buildtype=release', 'cpp_std=c++20', 'cpp_args=-Wall -Wextra -fPIE -g']
 )
 
+add_global_arguments('-DTF3_VERSION="' + meson.project_version() + '"', language: 'cpp')
+
 sqlite3_dep = dependency('sqlite3', method : 'pkg-config', required: true)
 libgit2_dep = dependency('libgit2', method : 'pkg-config', required: true)
 libcurl_dep = dependency('libcurl', method : 'pkg-config', required: true)
