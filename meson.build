@@ -3,7 +3,7 @@
 
 project('tracking-fixes-3', 'cpp',
   version: '1.0.0',
-  default_options: ['cpp_std=c++20']
+  default_options: ['buildtype=release', 'cpp_std=c++20', 'cpp_args=-Wall -Wextra -fPIE -g']
 )
 
 sqlite3_dep = dependency('sqlite3', required: true)
