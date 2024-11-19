@@ -35,6 +35,9 @@ int main(int argc, char **argv)
 	constexpr const char branches_conf_url[] = "https://kerncvs.suse.de/branches.conf";
 	gm.branches_conf = fetch_file_if_needed(gm.branches_conf, "branches.conf", branches_conf_url, gm.trace, gm.refresh);
 
+	constexpr const char fixes3_ini_url[] = "https://kerncvs.suse.de/fixes3.ini";
+	gm.fixes3_ini = fetch_file_if_needed(gm.fixes3_ini, "fixes3.ini", fixes3_ini_url, gm.trace, gm.refresh);
+
 	try_to_fetch_env(gm.kernel_tree, "LINUX_GIT");
 	try_to_fetch_env(gm.kernel_source, "KSOURCE_GIT");
 
