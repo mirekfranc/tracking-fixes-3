@@ -15,7 +15,9 @@ namespace {
 		std::string kernel_source;
 		std::string context_map;
 		std::string branches_conf;
+		std::string fixes3_ini;
 		std::string origin = "origin";
+		std::string stable = "stable";
 		bool refresh = false;
 		bool trace = false;
 	} gm;
@@ -51,7 +53,9 @@ namespace {
 		   << "  --kernel_tree, -k <dir>       - Clone of the mainline kernel repo ($LINUX_GIT)\n"
 		   << "  --kernel_source, -s <dir>     - Clone of the SUSE kernel repo ($KSOURCE_GIT)\n"
 		   << "  --context_map, -c <file>      - Custom path to the context-map\n"
+		   << "  --config, -C <file>           - Custom path to the fixes3 INI configuration file\n"
 		   << "  --origin, -o <remote>         - Use some other remote than origin (useful only for $LINUX_GIT)\n"
+		   << "  --stable, -S <remote>         - Use some other remote than stable (useful only for $LINUX_GIT)\n"
 		   << "  --refresh, -r                 - Refresh config files\n"
 		   << "  --trace, -t                   - Be a bit more verbose about how we got there on STDERR\n"
 		   << "  --version, -V                 - Print just the version number\n";
@@ -63,8 +67,10 @@ namespace {
 		{ "kernel_tree", required_argument, nullptr, 'k' },
 		{ "kernel_source", required_argument, nullptr, 's' },
 		{ "context_map", required_argument, nullptr, 'c' },
+		{ "config", required_argument, nullptr, 'C' },
 		{ "branches_conf", required_argument, nullptr, 'b' },
 		{ "origin", required_argument, nullptr, 'o' },
+		{ "stable", required_argument, nullptr, 'S' },
 		{ "refresh", no_argument, nullptr, 'r' },
 		{ "trace", no_argument, nullptr, 't' },
 		{ "version", no_argument, nullptr, 'V' },
@@ -79,7 +85,7 @@ namespace {
 		for (;;) {
 			int opt_idx;
 
-			c = getopt_long(argc, argv, "hm:k:s:c:b:o:rtV", opts, &opt_idx);
+			c = getopt_long(argc, argv, "hm:k:s:c:C:b:o:S:rtV", opts, &opt_idx);
 			if (c == -1)
 				break;
 
@@ -99,11 +105,17 @@ namespace {
 			case 'c':
 				gm.context_map = optarg;
 				break;
+			case 'C':
+				gm.fixes3_ini = optarg;
+				break;
 			case 'b':
 				gm.branches_conf = optarg;
 				break;
 			case 'o':
 				gm.origin = optarg;
+				break;
+			case 'S':
+				gm.stable = optarg;
 				break;
 			case 'r':
 				gm.refresh = true;
