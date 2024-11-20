@@ -6,6 +6,9 @@
 
 #include <cstdlib>
 #include <string>
+#include <string_view>
+#include <ranges>
+#include <vector>
 #include <iostream>
 
 #define TF3_BEGIN try {
@@ -30,6 +33,18 @@ namespace {
 			if (ptr)
 				var = ptr;
 		}
+	}
+
+	std::string strip(std::string s)
+	{
+		std::erase_if(s, isspace);
+		return s;
+	}
+
+	void split_string(std::vector<std::string> &list, const std::string &s, char delimiter)
+	{
+		for (auto w: std::views::split(s, delimiter))
+			list.push_back(strip(std::string(w.begin(), w.end())));
 	}
 }
 
