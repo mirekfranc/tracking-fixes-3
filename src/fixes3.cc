@@ -43,7 +43,9 @@ int main(int argc, char **argv)
 	try_to_fetch_env(gm.kernel_source, "KSOURCE_GIT");
 
 	Config config;
-	load_config(config, gm.fixes3_ini);
+	config.load(gm.fixes3_ini);
+	if (!config)
+		fail_with_message("unable to load config: ", gm.fixes3_ini);
 
 	fail_with_message("unimplemented");
 
