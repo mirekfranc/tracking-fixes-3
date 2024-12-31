@@ -6,6 +6,7 @@
 #include "tracking-fixes-3/libgit2.h"
 #include "tracking-fixes-3/libsqlite3.h"
 #include "tracking-fixes-3/libcurl.h"
+#include "tracking-fixes-3/config.h"
 
 namespace {
 	void parse_options(int argc, char **argv);
@@ -40,6 +41,9 @@ int main(int argc, char **argv)
 
 	try_to_fetch_env(gm.kernel_tree, "LINUX_GIT");
 	try_to_fetch_env(gm.kernel_source, "KSOURCE_GIT");
+
+	Config config;
+	load_config(config, gm.fixes3_ini);
 
 	fail_with_message("unimplemented");
 
